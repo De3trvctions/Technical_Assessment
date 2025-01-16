@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import router from './routes.js'
+import cors from 'cors'
 import { initializeDatabase } from './config/db.js'
 
 dotenv.config()
@@ -9,8 +10,9 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 50000
 
+app.use(cors())
 app.use(bodyParser.json({ limit: '10mb' }))
-app.use(router)
+app.use('/api', router)
 
 const startServer = async () => {
 	try {

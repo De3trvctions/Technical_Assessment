@@ -1,0 +1,155 @@
+/* General Body Styles */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+/* App Layout */
+.app {
+	display: flex;
+	height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+	width: 250px;
+	background-color: #282c34;
+	color: white;
+	padding: 20px;
+}
+
+.sidebar a {
+	display: block;
+	margin: 10px 0;
+	color: white;
+	text-decoration: none;
+}
+
+.sidebar a.active-link {
+	font-weight: bold;
+}
+
+/* Content Area */
+.content {
+	padding: 20px;
+	width: 100%;
+}
+
+/* Error Message */
+.error {
+	color: red;
+}
+
+/* Table Styles */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	table-layout: fixed; /* Prevent dynamic resizing of columns */
+}
+
+table,
+th,
+td {
+	border: 1px solid #ddd;
+}
+
+th,
+td {
+	padding: 10px;
+	text-align: left;
+	height: 60px; /* Fixed height for rows */
+	box-sizing: border-box;
+	overflow: hidden; /* Prevent content overflow */
+	text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+}
+
+/* Table Header Styling */
+th {
+	padding: 10px;
+	background-color: #f2f2f2;
+	text-align: left;
+	border: 1px solid #ddd;
+	min-width: 100px;
+	height: 60px; /* Fixed height for header row */
+}
+
+/* Table Column Width Adjustments */
+th:nth-child(1),
+td:nth-child(1) {
+	width: 5%; /* Narrower width for Post ID */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+	width: 5%; /* Narrower width for ID */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+	width: 20%; /* Keep this wider for Name */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+	width: 20%; /* Keep this wider for Email */
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+	width: 50%; /* Keep this wider for Body */
+}
+
+/* Table Row Styling */
+tbody tr {
+	height: 60px; /* Ensure each row height is consistent */
+}
+
+/* No Results Found Message */
+.no-results {
+	text-align: center;
+	font-style: italic;
+	color: #888;
+	padding: 20px 0;
+}
+
+/* Pagination Styles */
+.pagination {
+	display: flex;
+	flex-direction: column; /* Stack the pagination controls vertically */
+	align-items: center;
+	margin-top: 20px;
+}
+
+.pagination-controls {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px; /* Space between controls and page indicator */
+}
+
+.pagination button,
+.pagination select {
+	margin: 0 5px;
+	padding: 5px 10px;
+	font-size: 14px;
+}
+
+.pagination select {
+	width: 100px;
+	text-align: center;
+}
+
+.page-indicator {
+	font-size: 14px;
+	color: #333;
+	text-align: center;
+}
+
+/* Table Container for Scrolling */
+.table-container {
+	max-height: 85vh; /* 85% of the viewport height */
+	overflow-y: auto; /* Enable vertical scrolling when content overflows */
+	overflow-x: auto; /* Enable horizontal scrolling if the table width exceeds */
+}

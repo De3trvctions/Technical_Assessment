@@ -1,0 +1,39 @@
+{
+	"name": "frontend2",
+	"version": "0.1.0",
+	"proxy": "http://localhost:50000/api",
+	"private": true,
+	"dependencies": {
+		"cra-template-pwa": "2.0.0",
+		"papaparse": "^5.5.1",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-router-dom": "^6.0.0",
+		"react-scripts": "^3.0.1"
+	},
+	"type": "module",
+	"scripts": {
+		"start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+		"build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+		"test": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
+}
