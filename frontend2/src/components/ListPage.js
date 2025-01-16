@@ -10,11 +10,13 @@ const ListPage = () => {
 	const [searchBody, setSearchBody] = useState('')
 	const [totalRecords, setTotalRecords] = useState(0)
 	const [searchTriggered, setSearchTriggered] = useState(false)
+	const [loading, setLoading] = useState(false) // New loading state
 
 	const fetchData = async () => {
+		setLoading(true) // Set loading to true before starting fetch
 		try {
 			const response = await fetch(
-				`http://localhost:50000/api/data?page=${page}&pageSize=${pageSize}&email=${searchEmail}&name=${searchName}&body=${searchBody}`
+				`/data?page=${page}&pageSize=${pageSize}&email=${searchEmail}&name=${searchName}&body=${searchBody}`
 			)
 
 			if (!response.ok) {
@@ -27,6 +29,8 @@ const ListPage = () => {
 			setTotalRecords(result.pagination.total)
 		} catch (error) {
 			console.error('Error fetching data:', error)
+		} finally {
+			setLoading(false) // Set loading to false after fetching
 		}
 	}
 
@@ -54,6 +58,7 @@ const ListPage = () => {
 		<div className='content'>
 			<h1>List Data</h1>
 
+			{/* Search Filters */}
 			<div className='search-filters'>
 				<input
 					type='text'
@@ -84,6 +89,14 @@ const ListPage = () => {
 				</button>
 			</div>
 
+			{/* Loading mask */}
+			{loading && (
+				<div className='loading-mask'>
+					<div className='spinner'>Loading</div>
+				</div>
+			)}
+
+			{/* Data Table */}
 			<div className='table-container'>
 				<table>
 					<thead>
@@ -117,6 +130,7 @@ const ListPage = () => {
 				</table>
 			</div>
 
+			{/* Pagination */}
 			<div className='pagination'>
 				<div className='pagination-controls'>
 					<button

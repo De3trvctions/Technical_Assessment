@@ -14,42 +14,6 @@ const UploadPage = () => {
 		}
 	}
 
-	// const handleUpload = async () => {
-	// 	if (!file) {
-	// 		setError('Please select a file to upload.')
-	// 		return
-	// 	}
-
-	// 	Papa.parse(file, {
-	// 		header: true,
-	// 		complete: async (result) => {
-	// 			const parsedData = result.data
-	// 			const isValid = parsedData.every((item) => item.postId && item.id && item.name && item.email && item.body)
-
-	// 			if (!isValid) {
-	// 				setError('CSV file is missing required fields.')
-	// 				return
-	// 			}
-
-	// 			try {
-	// 				setUploadProgress(0)
-	// 				await fetch('/api/upload', {
-	// 					method: 'POST',
-	// 					headers: { 'Content-Type': 'application/json' },
-	// 					body: JSON.stringify({ data: parsedData }),
-	// 				})
-	// 				setUploadProgress(100)
-	// 				alert('Upload successful!')
-	// 			} catch (err) {
-	// 				setError('Failed to upload data.')
-	// 			}
-	// 		},
-	// 		error: (err) => {
-	// 			setError('Failed to parse CSV file.')
-	// 		},
-	// 	})
-	// }
-
 	const handleUpload = async () => {
 		if (!file) {
 			setError('Please select a file to upload.')
@@ -98,15 +62,24 @@ const UploadPage = () => {
 
 				try {
 					setUploadProgress(0)
-					await fetch('/data', {
+					const response = await fetch('/data', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({ data: filteredData }), // Send the filtered data
 					})
-					setUploadProgress(100)
-					alert('Upload successful!')
+
+					if (response.ok) {
+						setUploadProgress(100)
+						alert('Upload successful!')
+					} else {
+						// Handle non-200 status codes
+						const errorData = await response.json()
+						// Assuming the backend returns an error message in the response body
+						setError(errorData.message || 'Upload failed, unknown error')
+					}
 				} catch (err) {
-					setError('Failed to upload data.')
+					// Handle network or unexpected errors
+					setError('Failed to upload data due to a network error.')
 				}
 			},
 			error: (err) => {
