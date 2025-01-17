@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
 import Papa from 'papaparse'
-import '../styles.css'
+import { Form, Button, Alert, Container, ProgressBar } from 'react-bootstrap'
+import { API_URL } from '../config.js'
 
 const UploadPage = () => {
 	const [file, setFile] = useState(null)
 	const [error, setError] = useState(null)
-	const [uploadProgress, setUploadProgress] = useState(null)
+	const [successMessage, setSuccessMessage] = useState(null)
+	const [uploadProgress, setUploadProgress] = useState(null) // Initialize with 0%
 
 	const handleFileChange = (event) => {
 		if (event.target.files && event.target.files[0]) {
 			setFile(event.target.files[0])
 			setError(null)
+			setSuccessMessage(null) // Clear success message when new file is selected
 		}
 	}
 
 	const handleUpload = async () => {
+		setUploadProgress(0) // Reset to 0% before starting upload
+		setError(null)
+		setSuccessMessage(null) // Clear previous success message
+
 		if (!file) {
 			setError('Please select a file to upload.')
 			return
@@ -62,7 +69,7 @@ const UploadPage = () => {
 
 				try {
 					setUploadProgress(0)
-					const response = await fetch('/data', {
+					const response = await fetch(`${API_URL}/data`, {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({ data: filteredData }), // Send the filtered data
@@ -70,7 +77,7 @@ const UploadPage = () => {
 
 					if (response.ok) {
 						setUploadProgress(100)
-						alert('Upload successful!')
+						setSuccessMessage('Upload successful!') // Set success message
 					} else {
 						// Handle non-200 status codes
 						const errorData = await response.json()
@@ -89,13 +96,45 @@ const UploadPage = () => {
 	}
 
 	return (
-		<div className='content'>
+		<Container className='my-4'>
 			<h1>Upload CSV</h1>
-			<input type='file' accept='.csv' onChange={handleFileChange} />
-			<button onClick={handleUpload}>Upload</button>
-			{error && <p className='error'>{error}</p>}
-			{uploadProgress !== null && <p>Upload Progress: {uploadProgress}%</p>}
-		</div>
+			<span>Select a CSV file</span>
+			<div className='d-flex align-items-center'>
+				{/* Form group for file input */}
+				<Form.Group controlId='fileUpload' className='mb-0 me-3 d-flex align-items-center'>
+					<Form.Control
+						type='file'
+						accept='.csv'
+						onChange={handleFileChange}
+						style={{ flex: 1 }} // Ensures the input takes up remaining space
+					/>
+				</Form.Group>
+
+				{/* Upload button */}
+				<Button variant='primary' onClick={handleUpload}>
+					Upload
+				</Button>
+			</div>
+
+			{/* Show error alert if there's any error */}
+			{error && (
+				<Alert variant='danger' className='mt-3'>
+					{error}
+				</Alert>
+			)}
+
+			{/* Show success alert if upload is successful */}
+			{successMessage && (
+				<Alert variant='success' className='mt-3'>
+					{successMessage}
+				</Alert>
+			)}
+
+			{/* Show upload progress */}
+			{uploadProgress !== null && (
+				<ProgressBar now={uploadProgress} label={`${uploadProgress}%`} min={0} max={100} className='mt-3' />
+			)}
+		</Container>
 	)
 }
 

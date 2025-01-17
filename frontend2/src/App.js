@@ -9,7 +9,7 @@ function App() {
 		<Router>
 			<div className='app'>
 				<Sidebar />
-				<div className='content'>
+				<div className='content' style={{ marginLeft: '250px', padding: '20px' }}>
 					<AppRoutes />
 				</div>
 			</div>
