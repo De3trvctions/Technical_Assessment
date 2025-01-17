@@ -24,6 +24,16 @@ export const initializeDatabase = async () => {
       )
     `)
 
+		await connection.query(`
+		CREATE TABLE IF NOT EXISTS datalisttest (
+		  postId INT,
+		  id INT PRIMARY KEY,
+		  name VARCHAR(255),
+		  email VARCHAR(255),
+		  body TEXT
+		)
+	  `)
+
 		console.log('Database and datalist table are initialized.')
 	} catch (error) {
 		console.error('Error initializing database:', error)
