@@ -1,7 +1,7 @@
 {
 	"name": "frontend2",
 	"version": "0.1.0",
-	"proxy": "http://localhost:50000/api",
+	"proxy": "http://backend:50000/api",
 	"private": true,
 	"dependencies": {
 		"cra-template-pwa": "2.0.0",
@@ -9,7 +9,7 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router-dom": "^6.0.0",
-		"react-scripts": "^3.0.1"
+		"react-scripts": "^5.0.1"
 	},
 	"type": "module",
 	"scripts": {
@@ -35,5 +35,9 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"webpack": "^5.97.1",
+		"webpack-cli": "^6.0.1"
 	}
 }

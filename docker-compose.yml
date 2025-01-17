@@ -1,15 +1,20 @@
 version: '3.8'
 
 services:
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   ports:
-  #     - '3000:3000'
-  #   depends_on:
-  #     - backend
-  #   networks:
-  #     - app-network
+  frontend:
+    build:
+      context: ./frontend2
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_OPTIONS=--openssl-legacy-provider
+    command: npm start
 
   backend:
     build:
