@@ -102,3 +102,14 @@ docker-compose up --build
 
 - Use `docker-compose logs` to view container logs.
 - Ensure that you dont have any 3306 port used on your local machine.
+
+## Unit test
+
+Go in to backend service repo
+Make sure that you already installed everything with `npm install`
+
+```bash
+cd backend
+```
+
+Run the test with the code `npm test`
